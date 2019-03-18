@@ -1,0 +1,24 @@
+{
+  "extends": ["tslint:recommended", "tslint-config-prettier"],
+  "rulesDirectory": ["tslint-plugin-prettier"],
+  "rules": {
+    "prettier": true,
+    "no-console": false,
+    "interface-name": false,
+    "max-classes-per-file": false,
+    "object-literal-sort-keys": false,
+    "ordered-imports": [
+      true,
+      {
+        "import-sources-order": "any",
+        "named-imports-order": "lowercase-first"
+      }
+    ],
+    "variable-name": {
+      "options": ["allow-leading-underscore", "allow-pascal-case", "ban-keywords", "check-format"]
+    }
+  },
+  "linterOptions": {
+    "exclude": ["node_modules/**", "dist/**"]
+  }
+}

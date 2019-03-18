@@ -1,0 +1,14 @@
+.pages
+{
+    display: flex;
+    justify-content: center;
+}
+
+@media (max-width: 550px)
+{
+    .pages
+    {
+        display: block;
+        overflow: hidden;
+    }
+}

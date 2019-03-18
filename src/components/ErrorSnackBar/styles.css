@@ -1,0 +1,11 @@
+.snackBar
+{
+    position: fixed;
+    left: 10px;
+    top: 110px;
+    width: 440px;
+    color: white;
+    font-size: 20px;
+    font-weight: 500;
+    padding: 10px;
+}
