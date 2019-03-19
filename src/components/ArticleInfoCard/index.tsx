@@ -4,12 +4,12 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import React, { Component } from "react";
 import "./styles.css";
-import { ArticleInfoAndCookies } from "./articleInfoAndCookies";
+import { IArticleInfoAndCookies } from "./IArticleInfoAndCookies";
 
-class ArticleInfoCard extends Component<ArticleInfoAndCookies> {
+class ArticleInfoCard extends Component<IArticleInfoAndCookies> {
   private readonly link: string;
 
-  public constructor(props: ArticleInfoAndCookies) {
+  public constructor(props: IArticleInfoAndCookies) {
     super(props);
     this.link = `http://en.wikipedia.org/wiki/${props.title.replace(
       /  */g,

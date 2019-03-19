@@ -1,7 +1,7 @@
 import { AppBar, Toolbar, Typography } from "@material-ui/core/";
 import React from "react";
-import SearchRaw from "../SearchRaw";
 import "./styles.css";
+import { SearchRaw } from "../SearchRaw";
 
 export function Header(props: { onSearch: (query: string) => void }) {
   return (

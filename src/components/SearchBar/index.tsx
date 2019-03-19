@@ -1,6 +1,6 @@
 import React from "react";
-import SearchRaw from "../SearchRaw";
 import "./styles.css";
+import { SearchRaw } from "../SearchRaw";
 
 export function SearchBar({ onSearch }: { onSearch: (str: string) => void }) {
   return (

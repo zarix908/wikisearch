@@ -5,10 +5,10 @@ import SearchIcon from "@material-ui/icons/Search";
 import React, { Component } from "react";
 import "./styles.css";
 
-class SearchRaw extends Component<ISearchRawProperties> {
+export class SearchRaw extends Component<{ onSearch: (str: string) => void }> {
   private query: string = "";
 
-  constructor(props: ISearchRawProperties) {
+  constructor(props: { onSearch: (str: string) => void }) {
     super(props);
   }
 
@@ -40,10 +40,20 @@ class SearchRaw extends Component<ISearchRawProperties> {
       </Grid>
     );
   }
-}
 
-interface ISearchRawProperties {
-  onSearch: (str: string) => void;
-}
+  public componentDidMount(): void {
+    document.addEventListener("keypress", this.handleKeyPress, false);
+  }
 
-export default SearchRaw;
+  public componentWillUnmount(): void {
+    document.removeEventListener("keypress", this.handleKeyPress);
+  }
+
+  private handleKeyPress = (e: KeyboardEvent): void => {
+    console.log(e);
+
+    if (e.code === "Enter") {
+      this.props.onSearch(this.query);
+    }
+  };
+}

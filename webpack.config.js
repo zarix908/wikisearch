@@ -61,7 +61,7 @@ module.exports = {
         moduleFilenameTemplate: path.relative(bundleOutputDir, '[resourcePath]') // Point sourcemap entries to the original file locations on disk
       }),
       new ExtractTextPlugin({filename: './style_bundle.css', allChunks: true}),
-      new HtmlWebpackPlugin({  // Also generate a test.html
+      new HtmlWebpackPlugin({  // Also generate a tests.html
         filename: 'index.html',
         template: './public/index.html'
       }),

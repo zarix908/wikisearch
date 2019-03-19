@@ -1,0 +1,59 @@
+import React from "react";
+import Adapter from "enzyme-adapter-react-16";
+import { configure, shallow } from "enzyme";
+import PageSelector from "../../src/components/PageSelector";
+import PageSelectButton from "../../src/components/PageSelectButton";
+import { Button } from "@material-ui/core/";
+
+configure({ adapter: new Adapter() });
+
+describe("Test PageSelector component", () => {
+  let onSelectMock: jest.Mock<any, any>;
+
+  beforeEach(() => {
+    onSelectMock = jest.fn();
+  });
+
+  function pageSelectorFactory(elementsCount: number, page: number) {
+    return shallow(
+      <PageSelector
+        onSelect={onSelectMock}
+        elementsCount={elementsCount}
+        page={page}
+      />
+    );
+  }
+
+  it("+++ call onSelect with number of clicked SelectPageButton", () => {
+    const selectingPage = 7;
+    const button = pageSelectorFactory(100, 1)
+      .find(PageSelectButton)
+      .at(selectingPage - 1);
+
+    button.simulate("click");
+
+    expect(onSelectMock).nthCalledWith(1, selectingPage);
+  });
+
+  it("+++ call onSelect with decrement when click previous page button", () => {
+    let currentPage = 5;
+    const button = pageSelectorFactory(70, currentPage)
+      .find(Button)
+      .at(0); // previous page button
+
+    button.simulate("click");
+
+    expect(onSelectMock).nthCalledWith(1, --currentPage);
+  });
+
+  it("+++ call onSelect with increment when click next page button", () => {
+    let currentPage = 2;
+    const button = pageSelectorFactory(40, currentPage)
+      .find(Button)
+      .at(1); // next page button
+
+    button.simulate("click");
+
+    expect(onSelectMock).nthCalledWith(1, ++currentPage);
+  });
+});

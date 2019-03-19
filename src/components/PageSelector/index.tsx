@@ -5,12 +5,12 @@ import "./styles.css";
 
 class PageSelector extends Component<{
   onSelect: (value: number) => void;
-  elementsMaxCount: number;
+  elementsCount: number;
   page: number;
 }> {
   public render() {
     const page = this.props.page;
-    const elementsMaxCount: number = this.props.elementsMaxCount;
+    const elementsMaxCount: number = this.props.elementsCount;
 
     const offset: number = Math.floor((page - 1) / 10) * 10;
     const count: number = Math.min(

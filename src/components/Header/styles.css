@@ -8,6 +8,11 @@
 {
     width: 90px;
     padding: 0 5px;
+
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .searchRawCont

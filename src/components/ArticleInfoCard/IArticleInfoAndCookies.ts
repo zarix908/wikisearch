@@ -1,5 +1,5 @@
 import { IArticleInfo } from "../../model/articleInfo";
 
-export interface ArticleInfoAndCookies extends IArticleInfo {
+export interface IArticleInfoAndCookies extends IArticleInfo {
   cookies: any;
 }

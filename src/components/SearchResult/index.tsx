@@ -69,7 +69,7 @@ export class SearchResult extends Component<
           <PageSelector
             onSelect={this.onPageSelect}
             page={this.state.page}
-            elementsMaxCount={this.state.articlesInfo.length}
+            elementsCount={this.state.articlesInfo.length}
           />
         </footer>
         <ErrorSnackBar error={this.state.error} />
