@@ -50,8 +50,6 @@ export class SearchRaw extends Component<{ onSearch: (str: string) => void }> {
   }
 
   private handleKeyPress = (e: KeyboardEvent): void => {
-    console.log(e);
-
     if (e.code === "Enter") {
       this.props.onSearch(this.query);
     }

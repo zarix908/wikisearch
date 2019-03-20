@@ -33,7 +33,7 @@ export class SearchResult extends Component<
 
   public constructor(props: { cookies: any; query: string }) {
     super(props);
-    this.state = { articlesInfo: [], isSearch: true, error: "", page: 1 };
+    this.state = { articlesInfo: [], isSearch: true, error: "", page: 0 };
   }
 
   public render() {
@@ -97,7 +97,7 @@ export class SearchResult extends Component<
   };
 
   private makeRequest = async () => {
-    this.setState({ isSearch: true, error: "", page: 1 });
+    this.setState({ articlesInfo: [], isSearch: true, error: "", page: 0 });
 
     const result:
       | IArticlesInfoSearchResult
@@ -107,12 +107,18 @@ export class SearchResult extends Component<
     );
 
     if (typeof result === "string") {
-      this.setState({ articlesInfo: [], isSearch: false, error: result });
+      this.setState({
+        articlesInfo: [],
+        isSearch: false,
+        error: result,
+        page: 0
+      });
     } else {
       this.setState({
         articlesInfo: result.articlesInfo,
         error: "",
-        isSearch: false
+        isSearch: false,
+        page: result.articlesInfo.length > 0 ? 1 : 0
       });
     }
   };
