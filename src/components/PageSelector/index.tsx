@@ -12,18 +12,23 @@ class PageSelector extends Component<{
     const page = this.props.page;
     const elementsMaxCount: number = this.props.elementsCount;
 
+    if (page < 0 || page > Math.ceil(elementsMaxCount / 10)) {
+      throw new RangeError("page should greater 0 and less maximum page");
+    }
+
     const offset: number = Math.floor((page - 1) / 10) * 10;
-    const count: number = Math.min(
+    const displayedPagesCount: number = Math.min(
       Math.ceil(elementsMaxCount / 10) - offset,
       10
     );
+
     const nextButtonDisabled =
       page === Math.ceil(elementsMaxCount / 10) || elementsMaxCount === 0;
 
     return (
       <div>
         <div className="pages">
-          {this.range(offset, count).map(n => (
+          {this.range(offset, displayedPagesCount).map(n => (
             <PageSelectButton
               value={n}
               key={n}

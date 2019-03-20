@@ -7,7 +7,7 @@ import { SearchRaw } from "../../src/components/SearchRaw";
 
 configure({ adapter: new Adapter() });
 
-describe("Test SearchRaw component", () => {
+describe("SearchRaw component should", () => {
   let onSearchMock: jest.Mock<any, any>;
   let searchRaw: ShallowWrapper<any, Readonly<{}>, Component<{}, {}, any>>;
   // search button
@@ -19,13 +19,13 @@ describe("Test SearchRaw component", () => {
     fab = searchRaw.find(Fab);
   });
 
-  it("+++ call onSearch when click search button", () => {
+  it("call onSearch when click search button", () => {
     fab.simulate("click");
 
     expect(onSearchMock).toBeCalledTimes(1);
   });
 
-  it("+++ call onSearch with search input value", () => {
+  it("call onSearch with search input value", () => {
     const textField = searchRaw.find(TextField); // search input
     const searchValue = "some value";
 
