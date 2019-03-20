@@ -5,9 +5,13 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const bundleOutputDir = './dist';
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
-module.exports = {
+
+
+module.exports = (env) => {
+  const isDevBuild = !(env && env.prod);
+  return {
     stats: { modules: false },
-    entry: ['./src/index.tsx', './src/index.css'],
+    entry: {main: './src/index.tsx'},
     resolve: { extensions: ['.ts', '.tsx', '.js', '.jsx'] },
     output: {
       path: path.join(__dirname, bundleOutputDir),
@@ -54,20 +58,25 @@ module.exports = {
         }
       ]
     },
-    plugins: [
+    plugins: (isDevBuild ? [
       // Plugins that apply in development builds only
       new webpack.SourceMapDevToolPlugin({
         filename: '[file].map', // Remove this line if you prefer inline source maps
         moduleFilenameTemplate: path.relative(bundleOutputDir, '[resourcePath]') // Point sourcemap entries to the original file locations on disk
       }),
-      new ExtractTextPlugin({filename: './style_bundle.css', allChunks: true}),
+      new ExtractTextPlugin({ filename: './style_bundle.css', allChunks: true }),
       new HtmlWebpackPlugin({  // Also generate a tests.html
         filename: 'index.html',
         template: './public/index.html'
       }),
       new CopyWebpackPlugin([
-        {from: './public/favicon', to:'./favicon'},
-        {from: './public/manifest', to:'./manifest'}
-        ])
-    ]
+        { from: './public/favicon', to: './favicon' },
+        { from: './public/manifest', to: './manifest' }
+      ])
+    ] : [
+      // Plugins that apply in production builds only
+      new webpack.optimize.UglifyJsPlugin(),
+      new ExtractTextPlugin('site.css')
+    ])
   };
+};

@@ -1,4 +1,4 @@
-import fetch from "cross-fetch";
+import "cross-fetch";
 
 import "babel-polyfill";
 import { IArticleInfo } from "./articleInfo";
@@ -7,6 +7,7 @@ import { PromiseError } from "./promiseError";
 import { IResponse } from "./response";
 import { ISorting } from "./sorting";
 import { SortingKey } from "./sortingKey";
+import { WebError } from "./webError";
 
 export class ArticlesInfoSearcher {
   public async search(
@@ -26,13 +27,13 @@ export class ArticlesInfoSearcher {
     );
 
     const response: IArticlesInfoSearchResult | PromiseError = await fetch(url)
-      .catch(this.error("failed request"))
+      .catch(this.error(WebError.NetworkFailure))
       .then(this.ifNotError(this.checkOkStatus))
-      .catch(this.error("status code error"))
+      .catch(this.error(WebError.ResponseNotOk))
       .then(this.ifNotError((res: Response) => res.json()))
-      .catch(this.error("invalid response format"))
+      .catch(this.error(WebError.ResponseNotJson))
       .then(this.ifNotError(this.extractArticlesInfo))
-      .catch(this.error("response json invalid format"));
+      .catch(this.error(WebError.ResponseJsonNotArticlesInfo));
 
     return response instanceof PromiseError ? response.message : response;
   }

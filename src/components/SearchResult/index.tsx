@@ -5,7 +5,7 @@ import PageSelector from "../PageSelector";
 import SortingControl from "../SortingControl";
 import "./styles.css";
 
-import { ArticlesInfoSearcher } from "../../model/arcticlesInfoSearcher";
+import { ArticlesInfoSearcher } from "../../model/articlesInfoSearcher";
 import "./styles.css";
 import { IArticleInfo } from "../../model/articleInfo";
 import { ISorting } from "../../model/sorting";
