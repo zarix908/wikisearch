@@ -41,7 +41,10 @@ class ArticleInfoCard extends Component<IArticleInfoAndCookies> {
               {this.link}
             </a>
           </Typography>
-          <div dangerouslySetInnerHTML={{ __html: this.props.snippet }} />
+          <div
+            className={styles.snippet}
+            dangerouslySetInnerHTML={{ __html: this.props.snippet }}
+          />
           <Typography color="textSecondary" align="right">
             {new Date(this.props.timestamp).toLocaleDateString()}
           </Typography>

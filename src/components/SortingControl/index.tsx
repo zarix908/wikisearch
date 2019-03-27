@@ -3,7 +3,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 import Typography from "@material-ui/core/Typography";
 import React, { Component } from "react";
-import "./styles.css";
+import styles from "./styles.css";
 import { ISorting } from "../../model/sorting";
 import { SortingKey } from "../../model/sortingKey";
 import { SortingOrder } from "../../model/sortingOrder";
@@ -26,8 +26,8 @@ class SortingControl extends Component<{
       this.state.sortingKey === SortingKey.Relevance;
 
     return (
-      <div className="paddingBox">
-        <section className="container">
+      <div className={styles.paddingBox}>
+        <section className={styles.container}>
           <Typography variant="h6" color="textPrimary" align="center">
             Sorting
           </Typography>

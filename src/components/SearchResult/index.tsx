@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import CardsContainer from "../CardsContainer";
 import PageSelector from "../PageSelector";
 import SortingControl from "../SortingControl";
-import "./styles.css";
+import styles from "./styles.css";
 
 import { ArticlesInfoSearcher } from "../../model/articlesInfoSearcher";
 import "./styles.css";
@@ -54,20 +54,23 @@ export class SearchResult extends Component<
     );
 
     return (
-      <div className="fullHeight">
+      <div className={styles.fullHeight}>
         <Header onSearch={this.onSearch} />
-        <main className="main">
+        <main className={styles.main}>
           <Grid container spacing={16} justify="flex-end">
             <Grid item md={6} xs={7}>
               {this.state.isSearch ? searchingLabel : cardsContainer}
             </Grid>
             <Grid item md={3} xs={5}>
               <SortingControl onChange={this.onSortingControlChange} />
-              <QueryHistory cookies={this.props.cookies} onChange={e => e} />
+              <QueryHistory
+                cookies={this.props.cookies}
+                onChange={this.onSearch}
+              />
             </Grid>
           </Grid>
         </main>
-        <footer>
+        <footer className={styles.footer}>
           <PageSelector
             onSelect={this.onPageSelect}
             page={this.state.page}

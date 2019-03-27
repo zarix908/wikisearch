@@ -1,7 +1,7 @@
 import { Button, Grid } from "@material-ui/core/";
 import React, { Component } from "react";
 import PageSelectButton from "../PageSelectButton";
-import "./styles.css";
+import styles from "./styles.css";
 
 class PageSelector extends Component<{
   onSelect: (value: number) => void;
@@ -32,7 +32,7 @@ class PageSelector extends Component<{
 
     return (
       <div>
-        <div className="pages">
+        <div className={styles.pages}>
           {this.range(offset, displayedPagesCount).map(n => (
             <PageSelectButton
               value={n}

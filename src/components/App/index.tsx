@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { withCookies } from "react-cookie";
-import "./styles.css";
 import { Home } from "../Home";
 import { SearchResult } from "../SearchResult";
 import { Route, Switch } from "react-router";

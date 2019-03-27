@@ -2,7 +2,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import React from "react";
 import ArticleInfoCard from "../ArticleInfoCard";
-import "./styles.css";
+import styles from "./styles.css";
 import { IArticleInfo } from "../../model/articleInfo";
 
 function CardsContainer(props: { cookies: any; articlesInfo: IArticleInfo[] }) {
@@ -17,7 +17,7 @@ function CardsContainer(props: { cookies: any; articlesInfo: IArticleInfo[] }) {
   return (
     <Grid container spacing={16}>
       {props.articlesInfo.map((articleInfo: IArticleInfo) => (
-        <Grid item className="fullWidth" key={articleInfo.title}>
+        <Grid item className={styles.fullWidth} key={articleInfo.title}>
           <ArticleInfoCard
             cookies={props.cookies}
             pageid={articleInfo.pageid}

@@ -1,13 +1,23 @@
 import * as React from "react";
-import "./styles.css";
+import styles from "./styles.css";
 import { ButtonBase, Typography } from "@material-ui/core";
 
-function extractHistoryFromCookies(cookies: any): string[] {
-  const queries: string[] = [];
+function extractHistoryFromCookies(cookies: any): Array<[string, string]> {
+  const queries: Array<[string, string]> = [];
   const count = parseInt(cookies.get("count"), 10);
 
   if (isNaN(count)) {
     return queries;
+  }
+
+  for (let i: number = count; i > count - 10; i--) {
+    const queryNumber = i >= 0 ? i : i + 10;
+    const query = cookies.get(`lastQueries${queryNumber}`);
+
+    if (query !== undefined) {
+      const uuid = crypto.getRandomValues(new Uint32Array(4)).join("-");
+      queries.push([query, uuid]);
+    }
   }
 
   return queries;
@@ -18,15 +28,19 @@ export function QueryHistory(props: {
   onChange: (query: string) => void;
 }) {
   return (
-    <div className="paddingBoxHist">
-      <div className="containerHist">
+    <div className={styles.paddingBoxHist}>
+      <div className={styles.containerHist}>
         <Typography variant="h6" color="textPrimary" align="center">
           History
         </Typography>
-        {extractHistoryFromCookies(props.cookies).map(el => (
-          <div className="comp" onClick={() => props.onChange(el)}>
-            <ButtonBase className="fullWidth fullHeight hoverSelect">
-              <div className="noTransform">{el}</div>
+        {extractHistoryFromCookies(props.cookies).map(([el, i]) => (
+          <div
+            className={styles.comp}
+            onClick={() => props.onChange(el)}
+            key={i}
+          >
+            <ButtonBase className={styles.button}>
+              <div className={styles.buttonContent}>{el}</div>
             </ButtonBase>
           </div>
         ))}

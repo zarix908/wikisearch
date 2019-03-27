@@ -1,6 +1,6 @@
 import { IconButton, Typography } from "@material-ui/core/";
 import React from "react";
-import "./styles.css";
+import styles from "./styles.css";
 
 function PageSelectButton(props: {
   value: number;
@@ -9,7 +9,11 @@ function PageSelectButton(props: {
 }) {
   return (
     <IconButton onClick={() => props.onClick(props.value)}>
-      <div className={`pageButton ${props.pressed ? "pressed" : null}`}>
+      <div
+        className={`${styles.pageButton} ${
+          props.pressed ? styles.pressed : ""
+        }`}
+      >
         <Typography color="primary">
           <strong>{props.value}</strong>
         </Typography>
