@@ -22,6 +22,10 @@ module.exports = (env) => {
     module: {
       rules: [
         {
+          test: /\.css$/,
+          loader: 'style-loader'
+        },
+        {
           test: /\.jsx?$/,
           include: /src/,
           use: {
@@ -49,7 +53,7 @@ module.exports = (env) => {
                 sourceMap: true,
                 //minimize: true,
                 url: false
-              }
+              },
             }]
           })
         }, {

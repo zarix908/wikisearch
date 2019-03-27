@@ -14,6 +14,7 @@ import { SortingKey } from "../../model/sortingKey";
 import { IArticlesInfoSearchResult } from "../../model/articlesInfoSearchResult";
 import { ErrorSnackBar } from "../ErrorSnackBar";
 import { Header } from "../Header";
+import { QueryHistory } from "../QueryHistory";
 
 export class SearchResult extends Component<
   { cookies: any; query: string },
@@ -62,6 +63,7 @@ export class SearchResult extends Component<
             </Grid>
             <Grid item md={3} xs={5}>
               <SortingControl onChange={this.onSortingControlChange} />
+              <QueryHistory cookies={this.props.cookies} onChange={e => e} />
             </Grid>
           </Grid>
         </main>
@@ -97,6 +99,8 @@ export class SearchResult extends Component<
   };
 
   private makeRequest = async () => {
+    this.addQueryToHistory();
+
     this.setState({ articlesInfo: [], isSearch: true, error: "", page: 0 });
 
     const result:
@@ -122,4 +126,15 @@ export class SearchResult extends Component<
       });
     }
   };
+
+  private addQueryToHistory() {
+    let count = (parseInt(this.props.cookies.get("count"), 10) + 1) % 10;
+
+    if (isNaN(count)) {
+      count = 0;
+    }
+
+    this.props.cookies.set(`lastQueries${count}`, this.lastQuery);
+    this.props.cookies.set("count", count);
+  }
 }

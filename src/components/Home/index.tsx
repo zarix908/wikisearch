@@ -1,6 +1,6 @@
 import Grid from "@material-ui/core/Grid";
 import React, { Component } from "react";
-import "./styles.css";
+import styles from "./styles.css";
 import { SearchBar } from "../SearchBar";
 import { Redirect } from "react-router-dom";
 
@@ -13,12 +13,12 @@ export class Home extends Component {
         container
         justify="center"
         alignItems="center"
-        className="fullHeight"
+        className={styles.fullHeight}
       >
         {this.state.query === null ? (
           <SearchBar onSearch={this.onSearch} />
         ) : (
-          <Redirect to={`/search/'${this.state.query}'`} />
+          <Redirect to={`/search/${encodeURI(this.state.query)}`} />
         )}
       </Grid>
     );

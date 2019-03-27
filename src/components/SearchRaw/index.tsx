@@ -18,7 +18,6 @@ export class SearchRaw extends Component<{ onSearch: (str: string) => void }> {
         <Grid item className="searchInput">
           <TextField
             variant="outlined"
-            color="primary"
             onChange={e => (this.query = e.target.value)}
             placeholder="Search Wiki"
             type="search"
