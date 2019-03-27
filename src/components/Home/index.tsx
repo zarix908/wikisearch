@@ -25,6 +25,14 @@ export class Home extends Component {
   }
 
   private onSearch = (query: string): void => {
+    if (query.indexOf("#") !== -1) {
+      query = query.replace(/#/g, ""); // hash router
+    }
+
+    if (query.trim().length === 0) {
+      query = "whitespace"; // hash router
+    }
+
     this.setState({ query });
   };
 }
