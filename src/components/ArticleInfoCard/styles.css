@@ -6,6 +6,13 @@
 .card
 {
     font-size: 14px;
+    cursor: pointer;
+}
+
+.card:hover
+{
+    box-shadow: 0 5px 12px rgba(0,0,0,0.25),
+    0 3px 3px rgba(0,0,0,0.22);
 }
 
 .fullWidth
@@ -16,15 +23,4 @@
 .link:visited
 {
     color: #0000EE;
-}
-
-.hoverSelection
-{
-    cursor: pointer;
-}
-
-.hoverSelection:hover
-{
-    box-shadow: 0 5px 12px rgba(0,0,0,0.25), 
-                0 3px 3px rgba(0,0,0,0.22);
 }

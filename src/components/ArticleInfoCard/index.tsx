@@ -3,7 +3,7 @@ import CardContent from "@material-ui/core/CardContent";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import React, { Component } from "react";
-import "./styles.css";
+import styles from "./styles.css";
 import { IArticleInfoAndCookies } from "./IArticleInfoAndCookies";
 
 class ArticleInfoCard extends Component<IArticleInfoAndCookies> {
@@ -22,9 +22,9 @@ class ArticleInfoCard extends Component<IArticleInfoAndCookies> {
       this.props.cookies.get(this.props.pageid) !== undefined;
 
     return (
-      <Card className="hoverSelection card" onClick={this.onClick}>
+      <Card className={styles.card} onClick={this.onClick}>
         <CardContent>
-          <Grid container direction="row" className="fullWidth">
+          <Grid container direction="row" className={styles.fullWidth}>
             <Grid item xs={11}>
               <Typography color="textPrimary" variant="h5" gutterBottom>
                 {this.props.title}
@@ -37,7 +37,7 @@ class ArticleInfoCard extends Component<IArticleInfoAndCookies> {
             </Grid>
           </Grid>
           <Typography gutterBottom>
-            <a className="link" href={this.link} target="_blank">
+            <a className={styles.link} href={this.link} target="_blank">
               {this.link}
             </a>
           </Typography>

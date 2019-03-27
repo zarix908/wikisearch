@@ -5,8 +5,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const bundleOutputDir = './dist';
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
-
-
 module.exports = (env) => {
   const isDevBuild = !(env && env.prod);
   return {
@@ -21,10 +19,6 @@ module.exports = (env) => {
     },
     module: {
       rules: [
-        {
-          test: /\.css$/,
-          loader: 'style-loader'
-        },
         {
           test: /\.jsx?$/,
           include: /src/,
@@ -47,14 +41,22 @@ module.exports = (env) => {
         }, {
           test: /\.css$/,
           use: ExtractTextPlugin.extract({
-            use: [{
-              loader: "css-loader",
-              options: {
-                sourceMap: true,
-                //minimize: true,
-                url: false
+            use: [
+              {
+                loader: 'css-loader',
+                options: {
+                  modules: true,
+                  importLoaders: 1,
+                  camelCase: true,
+                  localIdentName: '[name]_[local]_[hash:base64:5]'
+                }
               },
-            }]
+              {
+                loader: 'typed-css-modules-loader',
+                options: {
+                  camelCase: true
+                }
+              }]
           })
         }, {
           test: /\.(png|jpg|jpeg|gif|svg)$/,
@@ -75,7 +77,8 @@ module.exports = (env) => {
       }),
       new CopyWebpackPlugin([
         { from: './public/favicon', to: './favicon' },
-        { from: './public/manifest', to: './manifest' }
+        { from: './public/manifest', to: './manifest' },
+        { from: './public/styles', to: './styles'}
       ])
     ] : [
       // Plugins that apply in production builds only

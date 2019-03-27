@@ -3,7 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import SearchIcon from "@material-ui/icons/Search";
 import React, { Component } from "react";
-import "./styles.css";
+import styles from "./styles.css";
 
 export class SearchRaw extends Component<{ onSearch: (str: string) => void }> {
   private query: string = "";
@@ -15,7 +15,7 @@ export class SearchRaw extends Component<{ onSearch: (str: string) => void }> {
   public render() {
     return (
       <Grid container direction="row" justify="space-between">
-        <Grid item className="searchInput">
+        <Grid item className={styles.searchInput}>
           <TextField
             variant="outlined"
             onChange={e => (this.query = e.target.value)}
