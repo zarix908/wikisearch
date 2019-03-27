@@ -26,7 +26,11 @@ export class ArticlesInfoSearcher {
         `&srlimit=250&${sortingParams}&srsearch="${query}"`
     );
 
-    const response: IArticlesInfoSearchResult | PromiseError = await fetch(url)
+    const timeout = 3000;
+
+    const response:
+      | IArticlesInfoSearchResult
+      | PromiseError = await this.fetchWithTimeout(url, timeout)
       .catch(this.error(WebError.NetworkFailure))
       .then(this.ifNotError(this.checkOkStatus))
       .catch(this.error(WebError.ResponseNotOk))
@@ -36,6 +40,16 @@ export class ArticlesInfoSearcher {
       .catch(this.error(WebError.ResponseJsonNotArticlesInfo));
 
     return response instanceof PromiseError ? response.message : response;
+  }
+
+  private fetchWithTimeout(url: string, timeout: number): Promise<Response> {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        reject(new Error("timeout"));
+      }, timeout);
+
+      fetch(url).then(resolve, reject);
+    });
   }
 
   private sortingToQueryParameters(sorting: ISorting): string {

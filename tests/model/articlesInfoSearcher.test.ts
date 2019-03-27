@@ -30,6 +30,23 @@ describe("ArticlesInfoSearcher should", () => {
       .then(() => done());
   });
 
+  it("handle timeout", done => {
+    const timeout = 4000;
+
+    fetchMock.getOnce(
+      buildUrl(),
+      new Promise(resolve => {
+        setTimeout(() => resolve("data"), timeout);
+      })
+    );
+    const articlesInfoSearcher = new ArticlesInfoSearcher();
+
+    articlesInfoSearcher
+      .search("query", defaultSorting)
+      .then(data => expect(data).toEqual(WebError.NetworkFailure))
+      .then(() => done());
+  });
+
   it("handle network failure", done => {
     testOnHandleResponse(
       Promise.reject("network failure"),

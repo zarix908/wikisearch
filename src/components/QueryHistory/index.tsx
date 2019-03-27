@@ -27,13 +27,19 @@ export function QueryHistory(props: {
   cookies: any;
   onChange: (query: string) => void;
 }) {
+  const queriesHistory = extractHistoryFromCookies(props.cookies);
+
+  if (queriesHistory.length === 0) {
+    return null;
+  }
+
   return (
     <div className={styles.paddingBoxHist}>
       <div className={styles.containerHist}>
         <Typography variant="h6" color="textPrimary" align="center">
           History
         </Typography>
-        {extractHistoryFromCookies(props.cookies).map(([el, i]) => (
+        {queriesHistory.map(([el, i]) => (
           <div
             className={styles.comp}
             onClick={() => props.onChange(el)}

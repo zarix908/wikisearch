@@ -28,7 +28,7 @@ class PageSelector extends Component<{
     );
 
     const nextButtonDisabled =
-      page === Math.ceil(elementsCount / 10) || elementsCount === 0;
+      page === Math.ceil(elementsCount / maxPageSize) || elementsCount === 0;
 
     return (
       <div>

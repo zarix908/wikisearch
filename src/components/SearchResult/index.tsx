@@ -29,7 +29,7 @@ export class SearchResult extends Component<
     sortingKey: SortingKey.Relevance,
     sortingOrder: SortingOrder.Ascending
   };
-
+  private readonly pageSize: number = 10;
   private lastQuery: string = "";
 
   public constructor(props: { cookies: any; query: string }) {
@@ -38,11 +38,14 @@ export class SearchResult extends Component<
   }
 
   public render() {
-    const offset = (this.state.page - 1) * 10;
+    const offset = (this.state.page - 1) * this.pageSize;
 
     const cardsContainer = (
       <CardsContainer
-        articlesInfo={this.state.articlesInfo.slice(offset, offset + 10)}
+        articlesInfo={this.state.articlesInfo.slice(
+          offset,
+          offset + this.pageSize
+        )}
         cookies={this.props.cookies}
       />
     );
@@ -131,7 +134,9 @@ export class SearchResult extends Component<
   };
 
   private addQueryToHistory() {
-    let count = (parseInt(this.props.cookies.get("count"), 10) + 1) % 10;
+    let count =
+      (parseInt(this.props.cookies.get("count"), this.pageSize) + 1) %
+      this.pageSize;
 
     if (isNaN(count)) {
       count = 0;
