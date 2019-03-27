@@ -1,44 +1,100 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# WikiSearch
+### Описание
+WikiSearch - single page application для поиска статей википедии по
+открытому API. Адаптировано под мобильные устройства.  
+  
+__version: 1.0.0__
+## Использование приложения
+### Установка зависимостей
+`npm install --save-dev`
 
-## Available Scripts
+### Скрипты
+* `npm run start` - запуск dev сервера по адресу 
+http://localhost:8080  
+* `npm run test` - запуск тестов из директории */tests*
+* `npm run build` - сборка приложения в директорию 
+*/dist*
 
-In the project directory, you can run:
+### Поиск
+Поиск осуществляется на *en.wikipedia.org*.
+Приложение состоит из двух экранов. 
 
-### `npm start`
+#### Home (Стартовый экран)
+По центру стартового экрана расположена поисковая 
+строка.
+Поиск производится по нажатию на поисковую кнопку или 
+по нажатию на клавишу Enter. Осуществляется переход на второй 
+экран приложения. *(SearchResult)*
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+#### SearchResult (Второй экран)
+Второй экран состоит из заголовка, главной части, подвала. 
+В заголовке располагается поисковая строка. В главной части - 
+результаты поиска. В подвале располагаются кнопки для перехода 
+по страницам результатов, а также кнопки NEXT и PREVIOUS. 
+  
+В правой колонке главной части располагается настройка 
+сотрировки результатов и история последних запросов. 
+Посещенные страницы помечаются словом *visited*.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+## Архитектура приложения
+### Инструменты
+Приложение написано на __Typescript__ с использованием __React__. 
+Транспиляция и сборка осуществляется при помощи __Babel__ и __Webpack__.
+Использовались компоненты набора __Material-UI__.
 
-### `npm test`
+### Краткое описание
+Поиск осуществляется при:
+* переходе со стартовой страницы
+* клику по запросу из истории
+* изменение настроек сортировки результатов
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Поиск осуществляется с помощью класса 
+*/model/ArticlesInfoSearcher*. Найденые статьи хранятся в 
+состоянии компонента *SearchResult*. Изменение состояния компонента
+вызывает его перерисовку. 
+(ограничение на поиск - не более 250 статей)  
 
-### `npm run build`
+Посещенные статьи и история запросов хранятся в cookie сайта.
+  
+При возникновении ошибки, появляется 
+предупреждение с соответсвующим текстом (класс *ErrorSnackBar*).
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Структура 
+* __/src__ - корневая директория React приложения  
+    * __/src/components__ - директория компонентов
+        * App - корневой, монтируется в элемент
+                с классом root на странице */public/index.html*
+        * Home - стартовый экран
+            * SearchBar - логотип + поисковая строка
+            * SearchRaw - поисковая строка
+        * SearchResult - результаты поиска
+            * Header - заголовок
+                * SearchRaw - поисковая строка
+            * main
+                * CardsContainer - контейнер для 
+                    ArticleInfoCard
+                    * ArticleInfoCard - информация о статье:
+                        заголовок, сниппет, дата
+                * SortingControl - сортировка результатов
+                * QueryHistory - история запросов
+                * ErrorSnackBar - вывод сообщений об ошибках
+            * footer
+                * PageSelector - выбор страницы результатов, 
+                    переход на следующую и предыдущуюю страницу
+                    * PageSelectButton - кнопка выбора страницы
+    * __/src/model__ - логика приложения
+        * articlesInfo - полная информация о статье
+        * articlesInfoSearcher - выполнение запроса, обработка 
+            ошибок при работе с сетью, парсинг ответа
+        * articlesInfoSearchResult - общее количество статей и 
+            массив элементов с информацией о них
+        * sorting - сортировка результатов
+        * webError - сетевые ошибки
+* */public* - статические файлы приложения
+* */dist* - директория сборки приложения
+* */tests* - директория тестов
+* конфигурационные файлы:
+    * зависимости - package.json
+    * babel - .babelrc
+    * style linter - .stylelintrc
+    * webpack - webpack.config.js

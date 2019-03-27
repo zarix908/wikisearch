@@ -13,9 +13,7 @@ module.exports = (env) => {
     resolve: { extensions: ['.ts', '.tsx', '.js', '.jsx'] },
     output: {
       path: path.join(__dirname, bundleOutputDir),
-      filename: 'index_bundle.js',
-      //filename: '[name].ts',
-      //publicPath: './public'
+      filename: 'index_bundle.js'
     },
     module: {
       rules: [
@@ -71,7 +69,7 @@ module.exports = (env) => {
         moduleFilenameTemplate: path.relative(bundleOutputDir, '[resourcePath]') // Point sourcemap entries to the original file locations on disk
       }),
       new ExtractTextPlugin({ filename: './style_bundle.css', allChunks: true }),
-      new HtmlWebpackPlugin({  // Also generate a tests.html
+      new HtmlWebpackPlugin({
         filename: 'index.html',
         template: './public/index.html'
       }),
