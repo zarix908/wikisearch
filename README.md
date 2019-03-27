@@ -40,7 +40,14 @@ http://localhost:8080
 ### Инструменты
 Приложение написано на __Typescript__ с использованием __React__. 
 Транспиляция и сборка осуществляется при помощи __Babel__ и __Webpack__.
-Использовались компоненты набора __Material-UI__.
+Использовались компоненты набора __Material-UI__.  
+   
+IDE: __WebStorm__ 
+(Необходимо настроить для запуска тестов, 
+отключить *jest.test.tree.use.jasmine.reporter*, 
+https://intellij-support.jetbrains.com/hc/en-us/community/posts/360003251559-Error-running-tests-from-editor-with-jest-24-?page=1)
+  
+OS: __Kali Linux__
 
 ### Краткое описание
 Поиск осуществляется при:
